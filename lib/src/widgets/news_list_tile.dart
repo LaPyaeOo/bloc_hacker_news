@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../constant/route_const.dart';
 import '../bloc/stories_provider.dart';
 import '../models/item_model.dart';
 import 'loading_container.dart';
@@ -24,15 +25,18 @@ class NewsListTile extends StatelessWidget {
                 if (!itemSnapShot.hasData) {
                   return const LoadingContainer();
                 }
-                return buildTile(itemSnapShot.data!);
+                return buildTile(itemSnapShot.data!,context);
               });
         });
   }
 
-  Widget buildTile(ItemModel item) {
+  Widget buildTile(ItemModel item,BuildContext context) {
     return Column(
       children: [
         ListTile(
+          onTap: (){
+            Navigator.pushNamed(context, detailRoute);
+          },
           title: Text(item.title!),
           subtitle: Text('${item.score} points'),
           trailing: Column(
