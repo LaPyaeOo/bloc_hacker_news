@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NewsDetail extends StatefulWidget {
-  const NewsDetail({Key? key}) : super(key: key);
+  final int itemId;
+
+  const NewsDetail({Key? key, required this.itemId}) : super(key: key);
 
   @override
   State<NewsDetail> createState() => _NewsDetailState();
@@ -14,7 +16,7 @@ class _NewsDetailState extends State<NewsDetail> {
       appBar: AppBar(
         title: const Text('News detail page'),
       ),
-      body:  const Center(
+      body: const Center(
         child: Text('This is news detail page'),
       ),
     );
