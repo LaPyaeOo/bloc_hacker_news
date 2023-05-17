@@ -12,7 +12,7 @@ class CommentsProvider extends InheritedWidget {
   @override
   bool updateShouldNotify(oldWidget) => true;
 
-  CommentsBloc of(BuildContext context) {
+  static CommentsBloc of(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<CommentsProvider>()
             as CommentsProvider)
         .bloc;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constant/route_const.dart';
+import '../bloc/comments_provider.dart';
 import '../screens/news_detail.dart';
 import '../screens/news_list.dart';
 
@@ -28,16 +29,14 @@ class RouteGenerator {
         },
       );
     } else {
-      if (settings.name!.contains('/')) {
-        int itemId = int.parse(settings.name!.replaceFirst('/', 'to'));
-        return MaterialPageRoute(
-          builder: (BuildContext context) {
-            return NewsDetail(itemId: itemId,);
-          },
-        );
-      } else {
-        return _errorRoute();
-      }
+      return MaterialPageRoute(
+        builder: (BuildContext context) {
+          int itemId = int.parse(settings.name!.replaceFirst('/', ''));
+          final commentBloc = CommentsProvider.of(context);
+          commentBloc.fetchItemWithComment(itemId);
+          return NewsDetail(itemId: itemId,);
+        },
+      );
     }
   }
 
