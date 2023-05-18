@@ -27,10 +27,39 @@ class _NewsDetailState extends State<NewsDetail> {
 
   Widget buildBody({required CommentsBloc bloc}) {
     return StreamBuilder(
-        stream: bloc.itemWithComment,
-        builder: (BuildContext context,
-            AsyncSnapshot<Map<int, Future<ItemModel>>>snapshot) {
-          return
-        });
+      stream: bloc.itemWithComment,
+      builder: (BuildContext context,
+          AsyncSnapshot<Map<int, Future<ItemModel>>> snapshot) {
+        if (!snapshot.hasData) {
+          return const Text('Loading');
+        }
+        final itemFuture = snapshot.data![widget.itemId];
+        return FutureBuilder(
+          future: itemFuture,
+          builder:
+              (BuildContext context, AsyncSnapshot<ItemModel> itemSnapshot) {
+            if (!itemSnapshot.hasData) {
+              return const Text('Loading');
+            }
+            return buildTitle(itemSnapshot.data!);
+          },
+        );
+      },
+    );
+  }
+
+  Widget buildTitle(ItemModel item) {
+    return Container(
+      margin: const EdgeInsets.all(10.0),
+      alignment: Alignment.topCenter,
+      child: Text(
+        item.title!,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
 }
