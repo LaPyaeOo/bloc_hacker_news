@@ -41,11 +41,17 @@ class _NewsDetailState extends State<NewsDetail> {
             if (!itemSnapshot.hasData) {
               return const Text('Loading');
             }
-            return buildTitle(itemSnapshot.data!);
+            // return buildTitle(itemSnapshot.data!);
+            /// Combination of item title and recursive comments
+            return buildList(itemSnapshot.data!, snapshot.data!);
           },
         );
       },
     );
+  }
+
+  Widget buildList(ItemModel item, Map<int, Future<ItemModel>> itemMap) {
+    return
   }
 
   Widget buildTitle(ItemModel item) {
