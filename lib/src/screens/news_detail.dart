@@ -51,7 +51,7 @@ class _NewsDetailState extends State<NewsDetail> {
   }
 
   Widget buildList(ItemModel item, Map<int, Future<ItemModel>> itemMap) {
-    return
+    return buildTitle(item);
   }
 
   Widget buildTitle(ItemModel item) {
