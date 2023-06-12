@@ -3,6 +3,7 @@ import 'package:hacker_news/src/bloc/stories_provider.dart';
 
 import '../widgets/news_list_tile.dart';
 import '../widgets/refresh.dart';
+import 'dart:developer'as developer;
 
 class NewsList extends StatefulWidget {
   const NewsList({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _NewsListState extends State<NewsList> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final storiesBloc = StoriesProvider.of(context);
-    storiesBloc.fetchTopIds();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('News List'),
@@ -79,7 +80,7 @@ getFuture() {
           child: ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (BuildContext context, int index) {
-              print('IS $index');
+              developer.log('IS $index');
               storiesBloc.fetchItem(snapshot.data![index]);
               return NewsListTile(
                 itemId: snapshot.data![index],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constant/route_const.dart';
 import '../bloc/comments_provider.dart';
+import '../bloc/stories_provider.dart';
 import '../screens/news_detail.dart';
 import '../screens/news_list.dart';
 
@@ -25,6 +26,8 @@ class RouteGenerator {
     if (settings.name == newsListRoute) {
       return MaterialPageRoute(
         builder: (BuildContext context) {
+          final storiesBloc = StoriesProvider.of(context);
+          storiesBloc.fetchTopIds();
           return const NewsList();
         },
       );
@@ -39,17 +42,18 @@ class RouteGenerator {
       );
     }
   }
+  /// Add error route if need
 
-  static Route _errorRoute() {
-    return MaterialPageRoute(
-      builder: (BuildContext context) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Error Route'),
-          ),
-          body: Container(),
-        );
-      },
-    );
-  }
+  // static Route _errorRoute() {
+  //   return MaterialPageRoute(
+  //     builder: (BuildContext context) {
+  //       return Scaffold(
+  //         appBar: AppBar(
+  //           title: const Text('Error Route'),
+  //         ),
+  //         body: Container(),
+  //       );
+  //     },
+  //   );
+  // }
 }

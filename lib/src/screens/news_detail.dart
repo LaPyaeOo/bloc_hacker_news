@@ -55,7 +55,7 @@ class _NewsDetailState extends State<NewsDetail> {
     final children = <Widget>[];
     children.add(buildTitle(item));
     final commentList = item.kids!.map((commentId) {
-      return Comment(itemId: commentId, itemModelMap: itemMap);
+      return Comment(itemId: commentId, itemModelMap: itemMap,depth: 0,);
     }).toList();
     children.addAll(commentList);
     return ListView(
