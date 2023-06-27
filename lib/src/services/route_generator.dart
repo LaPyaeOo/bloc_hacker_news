@@ -27,7 +27,7 @@ class RouteGenerator {
       return MaterialPageRoute(
         builder: (BuildContext context) {
           final storiesBloc = StoriesProvider.of(context);
-          storiesBloc.fetchTopIds();
+
           return const NewsList();
         },
       );

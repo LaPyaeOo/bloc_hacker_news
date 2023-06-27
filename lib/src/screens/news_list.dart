@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hacker_news/src/bloc/stories_provider.dart';
 
+import '../services/languages_service/app_translation.dart';
+import '../services/languages_service/language.dart';
+import '../services/languages_service/language_controller.dart';
 import '../widgets/news_list_tile.dart';
 import '../widgets/refresh.dart';
-import 'dart:developer'as developer;
+import 'dart:developer' as developer;
 
 class NewsList extends StatefulWidget {
   const NewsList({Key? key}) : super(key: key);
@@ -31,7 +35,39 @@ class _NewsListState extends State<NewsList> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final storiesBloc = StoriesProvider.of(context);
+    storiesBloc.fetchTopIds();
+    Get.put(LocaleCont());
 
+    /// For language changes
+    // return Scaffold(
+    // appBar: AppBar(
+    //   title: Text(
+    //     AppTranslation.of(context).getTranslatedValue("English")!.toString(),
+    //   ),
+    // ),
+    // body: Column(
+    //   children: [
+    //     Row(
+    //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //       children: Language.languageList()
+    //           .map(
+    //             (e) => Padding(
+    //               padding: EdgeInsets.only(right: 10),
+    //               child: ElevatedButton(
+    //                 onPressed: () {
+    //                   Get.find<LocaleCont>()
+    //                       .updateLocale(_changeLanguage(e, context));
+    //                 },
+    //                 child: Text("${e.name} ${e.flag}"),
+    //               ),
+    //             ),
+    //           )
+    //           .toList(),
+    //     ),
+    //     // buildList(storiesBloc: storiesBloc),
+    //   ],
+    // ),
+    // );
     return Scaffold(
       appBar: AppBar(
         title: const Text('News List'),
@@ -111,4 +147,24 @@ getFuture() {
 //             });
 //       });
 // }
+  Locale _changeLanguage(Language language, context) {
+    Locale a;
+    switch (language.languageCode) {
+      case english: // here ENGLISH is a constant that I've created in another file called `constant.dart` file and same for other languages
+        a = Locale(language.languageCode, "US");
+
+        break;
+      case myanmar:
+        a = Locale(language.languageCode, "MM");
+
+        break;
+
+      default:
+        a = Locale(language.languageCode, 'US');
+    }
+    return a;
+  }
 }
+
+const String english = "en";
+const String myanmar = "my";
