@@ -19,7 +19,7 @@ class NewsDbProvider implements Source, Cache {
 
     newsDb = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (Database database, int version) {
         database.execute("""
         CREATE TABLE Items 
